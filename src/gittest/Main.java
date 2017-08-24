@@ -6,6 +6,7 @@ public class Main {
         System.out.println(bob[1]);
         System.out.println(bob[0]);
         System.out.println(bob[2]);
+        B b = new B();
 
     }
 }
