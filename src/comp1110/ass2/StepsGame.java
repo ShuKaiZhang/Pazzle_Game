@@ -1,7 +1,8 @@
 package comp1110.ass2;
 
+import java.time.temporal.ValueRange;
 import java.util.Set;
-
+import java.util.Arrays;
 /**
  * This class provides the text interface for the Steps Game
  *
@@ -20,11 +21,34 @@ public class StepsGame {
      * @param piecePlacement A string describing a piece placement
      * @return True if the piece placement is well-formed
      */
+    static boolean isvalid12char (char a) {
+        char[] charAtoH ={'A','B','C','D','E','F','G','H'};
+        boolean result =false;
+        if (Arrays.asList(charAtoH).contains(a)){
+            result = true;
+        }
+        return result;
+    }
+    static boolean isvalid3char (char a) {
+        char[] charAtoYandatoy =
+                {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y',
+                        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y'};
+        boolean result =false;
+        if (Arrays.asList(charAtoYandatoy).contains(a)){
+            result = true;
+        }
+        return result;
+    }
     static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
-        return false;
+        boolean result = false;
+        if((isvalid12char(piecePlacement.charAt(0))) &&(isvalid12char(piecePlacement.charAt(1))) && (isvalid3char(piecePlacement.charAt(2))) ){
+                    result = true;
+        }else{
+            result = false;
+        }
+        return result;
     }
-
     /**
      * Determine whether a placement string is well-formed:
      *  - it consists of exactly N three-character piece placements (where N = 1 .. 8);
