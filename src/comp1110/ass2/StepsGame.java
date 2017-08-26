@@ -3,6 +3,7 @@ package comp1110.ass2;
 import java.time.temporal.ValueRange;
 import java.util.Set;
 import java.util.Arrays;
+import java.util.ArrayList;
 /**
  * This class provides the text interface for the Steps Game
  *
@@ -21,34 +22,29 @@ public class StepsGame {
      * @param piecePlacement A string describing a piece placement
      * @return True if the piece placement is well-formed
      */
-    static boolean isvalid12char (char a) {
-        char[] charAtoH ={'A','B','C','D','E','F','G','H'};
-        boolean result =false;
-        if (Arrays.asList(charAtoH).contains(a)){
-            result = true;
+    static  boolean charAtoH (char c) {
+        if (c>='A' && c<= 'H') {
+            return true;
+        }else   {
+            return false  ;
         }
-        return result;
-    }
-    static boolean isvalid3char (char a) {
-        char[] charAtoYandatoy =
-                {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y',
-                        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y'};
-        boolean result =false;
-        if (Arrays.asList(charAtoYandatoy).contains(a)){
-            result = true;
-        }
-        return result;
     }
     static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
-        boolean result = false;
-        if((isvalid12char(piecePlacement.charAt(0))) &&(isvalid12char(piecePlacement.charAt(1))) && (isvalid3char(piecePlacement.charAt(2))) ){
-                    result = true;
-        }else{
-            result = false;
+        if (piecePlacement.length() ==3) {
+            if ((charAtoH(piecePlacement.charAt(0))) && (charAtoH(piecePlacement.charAt(1)))){
+                if ((piecePlacement.charAt(2))>='A' && (piecePlacement.charAt(2) <= 'Y')) {
+                    return  true;
+                }
+                if ((piecePlacement.charAt(2))>='a' && (piecePlacement.charAt(2) <= 'y')) {
+                    return  true;
+                }
+            }
         }
-        return result;
+        return false;
     }
+
+
     /**
      * Determine whether a placement string is well-formed:
      *  - it consists of exactly N three-character piece placements (where N = 1 .. 8);
@@ -58,10 +54,58 @@ public class StepsGame {
      * @param placement A string describing a placement of one or more pieces
      * @return True if the placement is well-formed
      */
+    static String duplicateString (String input){
+        String result = "";
+        for (int i = 0; i < input.length(); i++) {
+            if(!result.contains(String.valueOf(input.charAt(i)))) {
+                result += String.valueOf(input.charAt(i));
+            }
+        }
+        return result;
+    }
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
-        return false;
+        if (placement == "" || placement== null) {
+            return false;
+        }
+        if (placement.length()%3 !=0) {
+            return false;
+        }
+        int a = 0;
+        ArrayList<String> placements = new ArrayList<>();
+        ArrayList<String> shapes  = new ArrayList<>();
+
+
+        for (int i = 0; i < placement.length(); i= i+3){
+            placements.add(placement.substring(i,i+3));
+            shapes.add(placement.substring(i,i+3).substring(0,1));
+        }
+        String shapeset = shapes.toString();
+        String dupstr =duplicateString(shapeset).replace(", ", "");
+        String shapestr = shapeset.replace(", ","");
+        System.out.println(dupstr.equals(shapestr));
+        System.out.println(dupstr);
+        System.out.println(shapestr);
+        if (dupstr.equals(shapestr)) {
+            a = a + 10;
+        }else {
+            a= a+3;
+        }
+
+        for (int i = 0; i < (placement.length()) / 3; i++) {
+            if ((isPiecePlacementWellFormed(placements.get(i)))) {
+                a = a +10;
+            }else{
+                a = a +3 ;
+            }
+        }
+        if(a % 10 ==0) {
+            return true;
+        }else{
+            return false;
+        }
     }
+
 
     /**
      * Determine whether a placement sequence is valid.  To be valid, the placement
