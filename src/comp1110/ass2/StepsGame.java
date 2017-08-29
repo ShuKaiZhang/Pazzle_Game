@@ -4,15 +4,16 @@ import java.time.temporal.ValueRange;
 import java.util.Set;
 import java.util.Arrays;
 import java.util.ArrayList;
+
 /**
  * This class provides the text interface for the Steps Game
  *
  * The game is based directly on Smart Games' IQ-Steps game
  * (http://www.smartgames.eu/en/smartgames/iq-steps)
  */
-public class StepsGame {
-
+public class StepsGame{
     /**
+     *
      * Determine whether a piece placement is well-formed according to the following:
      * - it consists of exactly three characters
      * - the first character is in the range A .. H (shapes)
@@ -117,7 +118,19 @@ public class StepsGame {
      */
     static boolean isPlacementSequenceValid(String placement) {
         // FIXME Task 5: determine whether a placement sequence is valid
-        return false;
+        /*if (placement.length() == 24)
+            return true;
+        else*/
+        /*if (isPlacementWellFormed(placement)){
+            for(int i =0;i<placement.length()/3;i++) {
+                int s=0;
+                String storage="";
+                storage = placement.substring(s,s+3);
+                s+=3;
+
+        }*/
+
+            return false;
     }
 
     /**
