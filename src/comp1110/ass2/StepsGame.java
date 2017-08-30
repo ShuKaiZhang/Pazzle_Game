@@ -120,22 +120,23 @@ public class StepsGame{
      * @return True if the placement sequence is valid
      */
     // FIXME Task 5: determine whether a placement sequence is valid
-    static boolean isPlacementoutofboard(String placement){
-        boolean result = false;
-        String pieces = "";
 
-        char location = ' ';
-        for (int i = 0; i<placement.length(); i=i+3){
+    static boolean isPlacementSequenceValid(String placement) {
+        boolean result = false;
+
+        /*
+         String location = Pieces.location(placement);
+        for (int i =0; i < location.length();i++){
+            if (location.charAt(i)<'A' || location.charAt(i)>'y'){
+                return false;
+            }
+            if (location.charAt(i)>'Y' && location.charAt(i)< 'a'){
+                return false;
+            }
 
         }
-        return result;
-    }
-    static boolean isPlacementSequenceValid(String placement) {
-
-        boolean result = false;
-
-
-        return result;
+         */
+        return isPlacementWellFormed(placement);
 
     }
 
