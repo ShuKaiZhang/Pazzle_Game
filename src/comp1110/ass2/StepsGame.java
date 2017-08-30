@@ -1,9 +1,12 @@
 package comp1110.ass2;
 
+import comp1110.ass2.gui.Pieces;
+
 import java.time.temporal.ValueRange;
 import java.util.Set;
 import java.util.Arrays;
 import java.util.ArrayList;
+
 
 /**
  * This class provides the text interface for the Steps Game
@@ -116,20 +119,24 @@ public class StepsGame{
      * @param placement A placement sequence string
      * @return True if the placement sequence is valid
      */
-    static boolean isPlacementSequenceValid(String placement) {
-        // FIXME Task 5: determine whether a placement sequence is valid
-        /*if (placement.length() == 24)
-            return true;
-        else*/
-        /*if (isPlacementWellFormed(placement)){
-            for(int i =0;i<placement.length()/3;i++) {
-                int s=0;
-                String storage="";
-                storage = placement.substring(s,s+3);
-                s+=3;
+    // FIXME Task 5: determine whether a placement sequence is valid
+    static boolean isPlacementoutofboard(String placement){
+        boolean result = false;
+        String pieces = "";
 
-        }*/;
-        return isPlacementWellFormed(placement);
+        char location = ' ';
+        for (int i = 0; i<placement.length(); i=i+3){
+
+        }
+        return result;
+    }
+    static boolean isPlacementSequenceValid(String placement) {
+
+        boolean result = false;
+
+
+        return result;
+
     }
 
     /**
@@ -143,6 +150,7 @@ public class StepsGame{
      * @param objective A valid game objective, but not necessarily a valid placement string
      * @return An set of viable piece placements
      */
+
     static Set<String> getViablePiecePlacements(String placement, String objective) {
         // FIXME Task 6: determine the correct order of piece placements
         return null;
