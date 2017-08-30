@@ -42,7 +42,7 @@ public class Viewer extends Application {
     class Square extends ImageView {
 
         Square(String id) {
-            if(id.charAt(1)=='A'||id.charAt(1)=='E'){
+            if(id.charAt(1)=='A'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'A' + ".png").toString()));
                 setRotate(0);
             }
@@ -52,15 +52,15 @@ public class Viewer extends Application {
             }
             if(id.charAt(1)=='C') {
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0) + 'A' + ".png").toString()));
-                setRotate(90);
+                setRotate(180);
             }
             if(id.charAt(1)=='D'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'A' + ".png").toString()));
-                setRotate(90);
+                setRotate(270);
             }
             if(id.charAt(1)=='E'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'E' + ".png").toString()));
-                setRotate(90);
+                setRotate(0);
             }
             if(id.charAt(1)=='F'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'E' + ".png").toString()));
@@ -68,11 +68,11 @@ public class Viewer extends Application {
             }
             if(id.charAt(1)=='G'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'E' + ".png").toString()));
-                setRotate(90);
+                setRotate(180);
             }
             if(id.charAt(1)=='H'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'E' + ".png").toString()));
-                setRotate(90);
+                setRotate(270);
             }
 
             int a = (int)id.charAt(2);

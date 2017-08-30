@@ -128,9 +128,8 @@ public class StepsGame{
                 storage = placement.substring(s,s+3);
                 s+=3;
 
-        }*/
-
-            return false;
+        }*/;
+        return isPlacementWellFormed(placement);
     }
 
     /**
