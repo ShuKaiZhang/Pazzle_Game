@@ -4,9 +4,9 @@ package comp1110.ass2.gui;
  * Created by Alex on 29/8/17.
  */
 public enum Pieces {
-    AA(new String[] {"ALU"}),AB(new String[] {"ALC"}),AC(new String[] {"CLW"}),AD(new String[] {"ULW"}),
+    AA(new String[] {"ALU"}),AB(new String[] {"ALU"}),AC(new String[] {"ALU"}),AD(new String[] {"ALU"}),
     AE(new String[] {"KBM"}),
-    BA(new String[] {"LW" }),BB(new String[] {"UL"}),BC(new String[] {"AL"}), BD(new String[] {"LC"}),
+    BA(new String[] {"LW" }),
     BE(new String[] {"BKV"}),
     CA(new String[] {"UL" }),
     CE(new String[] {"BKV"}),
@@ -93,7 +93,7 @@ public enum Pieces {
             }
         }
         System.out.println("end ");
-
+        location("AAl");
     }
 
 
