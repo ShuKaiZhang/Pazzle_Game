@@ -67,6 +67,7 @@ public class StepsGame{
         }
         return result;
     }
+
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
         if (placement == "" || placement== null) {
@@ -98,9 +99,9 @@ public class StepsGame{
 
         for (int i = 0; i < (placement.length()) / 3; i++) {
             if ((isPiecePlacementWellFormed(placements.get(i)))) {
-                a = a +10;
+                a = a + 10;
             }else{
-                a = a +3 ;
+                a = a + 3 ; //
             }
         }
         if(a % 10 ==0) {

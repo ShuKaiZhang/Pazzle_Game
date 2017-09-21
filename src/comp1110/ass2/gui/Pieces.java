@@ -4,32 +4,31 @@ package comp1110.ass2.gui;
  * Created by Alex on 29/8/17.
  */
 public enum Pieces {
-    AA(new String[] {"ALU"}),AB(new String[] {"ALU"}),AC(new String[] {"ALU"}),AD(new String[] {"ALU"}),
-    AE(new String[] {"KBM"}),
-    BA(new String[] {"LW" }),
-    BE(new String[] {"BKV"}),
-    CA(new String[] {"UL" }),
-    CE(new String[] {"BKV"}),
-    DA(new String[] {"LW" }),
-    DB(new String[] {"LU" }),
-    DE(new String[] {"BMV"}),
-    EA(new String[] {"UL" }),
-    EE(new String[] {"BMV"}),
-    FA(new String[] {"ULC"}),
-    FE(new String[] {"KV" }),
-    GA(new String[] {"ULC"}),
-    GE(new String[] {"BKV"}),
-    HA(new String[] {"CLW"}),
-    HE(new String[] {"BMV"});
+    AA(new String[] {"ALU",}),AB(new String[] {"ACL"}),AC(new String[] {"CLW"}),AD(new String[] {"ULW"}),
+    AE(new String[] {"KBM"}),AF(new String[] {"BMV"}),AG(new String[] {"KVM"}),AH(new String[] {"BKV"}),
+    BA(new String[] {"LW" }),BB(new String[] {"LU" }),BC(new String[] {"AL"} ),BD(new String[] {"CL" }),
+    BE(new String[] {"BKV"}),BF(new String[] {"KBM"}),BG(new String[] {"BMV"}),BH(new String[] {"KMV"}),
+    CA(new String[] {"UL" }),CB(new String[] {"AL" }),CC(new String[] {"LC" }),CD(new String[] {"LW"}),
+    CE(new String[] {"BKV"}), //AE (new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    DA(new String[] {"LW" }),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    DB(new String[] {"LU" }),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    DE(new String[] {"BMV"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    EA(new String[] {"UL" }),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    EE(new String[] {"BMV"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    FA(new String[] {"ULC"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    FE(new String[] {"KV" }),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    GA(new String[] {"ULC"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    GE(new String[] {"BKV"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    HA(new String[] {"CLW"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+    HE(new String[] {"BMV"});//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
 /*
-    AA("ALU"), AB("ACL"), AC("CLW"), AD("ULW"), AE("BKM"), AF("BMV"), AG("KVM"), AH("BKV"),
-    BA("LW"), BB("LU"), BC("AL"), BD("LC"), BE("BKV"),BF("KBM"),BG("BMV"),BH("KMV"),
-    CA("LU"),CB("AL"),CC("LC"),CD("LW"),CE("BKV"),CF("KBM"),CG("BMV"),CH("KMV"),
-    DA("LW"),DB("LU"),DC("AL"),DD("LC"),DE("BKV"),DF("BMV"),DG("BKV"),DH("KBM"),
-    EA("LU"),EB("AL"),EC("LC"),ED("BM"),EE("BMV"),EF("KVM"),EG("BKV"),EH("KBM"),
-    FA("ULC"),FB("ALW"),FC("ULC"),FD("ALW"),FE("KV"),FF("KB"),FG("BM"),FH("VM"),
-    GA("BMV"),GB("KVM"),GC("BKV"),GD("KBM"),GE("ALW"),GF("ULC"),GG("ALW"),GH("ULC"),
-    HA("BKV"),HB("KBM"),HC("BMV"),HD("KVM"),HE("ALU"),HF("ALC"),HG("CLW"),HH("ULW");
+    BG("BMV"),BH("KMV"),
+CA("LU"),CB("AL"),CC("LC"),CD("LW"),CE("BKV"),CF("KBM"),CG("BMV"),CH("KMV"),
+DA("LW"),DB("LU"),DC("AL"),DD("LC"),DE("BMV"),DF("KMV"),DG("BKV"),DH("KBM"),
+EA("LU"),EB("AL"),EC("LC"),ED("BM"),EE("BMV"),EF("KVM"),EG("BKV"),EH("KBM"),
+FA("ULC"),FB("ALW"),FC("ULC"),FD("ALW"),FE("KV"),FF("KB"),FG("BM"),FH("VM"),
+GA("BMV"),GB("KVM"),GC("BKV"),GD("BKV"),GE("ALW"),GF("KBM"),GG("BMV"),GH("KVM"),
+HA("CLW"),HB("ULW"),HC("ULA"),HD("ALC"),HE("ALU"),HF("ALC"),HG("CLW"),HH("ULW");
     **/
     private final String[] original;
 
@@ -80,21 +79,6 @@ public enum Pieces {
         return  result;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Start: ");
-        String a = "AAlBBBC=EE";
-        String b = "AAlBBB=CEE";
-        for (int i =0; i < a.length();i++){
-            if (a.charAt(i)<'A' || a.charAt(i)>'y'){
-                System.out.println(a.charAt(i) + " 1 False");
-            }
-            if (a.charAt(i)>'Y' && a.charAt(i)< 'a'){
-                System.out.println(a.charAt(i) + "  False");
-            }
-        }
-        System.out.println("end ");
-        location("AAl");
-    }
 
 
 }
