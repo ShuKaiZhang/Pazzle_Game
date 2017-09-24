@@ -21,8 +21,8 @@ public enum Pieces {
         this.original= original;
     }
 
-    public static char rotate(char piece) {
-        char result = '.';
+    public static char rotate(char  piece) {
+        char result = ' ';
         if (piece=='A') {result = 'C';}
         if (piece=='B') {result = 'M';}
         if (piece=='C') {result = 'W';}
@@ -32,6 +32,7 @@ public enum Pieces {
         if (piece=='U') {result = 'A';}
         if (piece=='K') {result = 'B';}
         if (piece=='L') {result = 'L';}
+
         return result;
     }
 
@@ -57,9 +58,25 @@ public enum Pieces {
         for (int i = 0; i < a.length(); i++){
             result = result + flip(a.charAt(i));
         }
+        System.out.println(rotate('A'));
+
+        System.out.println(location("AEk"));
     }
 
-
+    public static String flipSt (String str){
+        String result = "";
+        for (int i = 0; i < str.length(); i++){
+            result = result + flip(str.charAt(i));
+        }
+        return  result;
+    }
+    public static String rotateSt (String str){
+        String result = "";
+        for (int i = 0; i < str.length(); i++){
+            result = result + rotate(str.charAt(i));
+        }
+        return  result;
+    }
 
 
     public static String movepiece(String str,char a) {
@@ -84,21 +101,42 @@ public enum Pieces {
     }
 
 
-    public static String transformation (String trans){
+    public static String transformation (String trans,char a) { // ALM, B
         String result = "";
-        char notwo = trans.charAt(1);
-        if (notwo == 'B') {
+
+        if (a=='A') {
+            result = trans;
         }
+        if (a=='B') {
+            result = rotateSt(trans);
+        }
+        if (a=='C') {
+            result = rotateSt(rotateSt(trans));
+        }
+        if (a=='D') {
+            result =rotateSt(rotateSt(rotateSt(trans)));
+        }
+        if (a=='E') {
+            result = flipSt(trans);
+        }
+        if (a=='A') {
+            result = trans;
+        }
+        if (a=='A') {
+            result = trans;
+        }
+
         return result;
     }
 
     public static String location (String placement) {
         String result = "";
         for (int i =0; i <placement.length(); i = i +3){
-            String originpiece    = placement.substring(i,i+1); // A
-            String asd =  Pieces.valueOf(originpiece).original[0];
+            String originpiece   = placement.substring(i,i+1); // AAL
+            String origin  =  Pieces.valueOf(originpiece).original[0]; // ALC
+            String sda =  transformation(origin,placement.charAt(i+1));
             char location = placement.charAt(i+2);
-            result = result + movepiece(asd,location);
+            result = result + movepiece(sda,location);
         }
         return result;
     }
