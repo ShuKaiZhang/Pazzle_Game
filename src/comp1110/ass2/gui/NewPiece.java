@@ -8,7 +8,8 @@ public class NewPiece {
 
     public NewPiece(char pieceName) {
         switch (pieceName) {
-            case 'A':   p[0][0][0] = 1;
+            case 'A':
+                p[0][0][0] = 1;
                 p[1][1][0] = 1;
                 p[0][2][0] = 1;
                 p[0][1][1] = 1;
