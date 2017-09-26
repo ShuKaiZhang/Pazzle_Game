@@ -67,6 +67,7 @@ public class NewPiece {
                 p[1][2][1] = 1;
                 break;
 
+
         }
     }
 

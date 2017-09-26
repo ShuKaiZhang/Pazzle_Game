@@ -59,8 +59,7 @@ public enum Pieces {
             result = result + flip(a.charAt(i));
         }
         System.out.println(rotate('A'));
-
-        System.out.println(location("AEk"));
+        System.out.println(location("ABl"));
     }
 
     public static String flipSt (String str){
@@ -119,11 +118,14 @@ public enum Pieces {
         if (a=='E') {
             result = flipSt(trans);
         }
-        if (a=='A') {
-            result = trans;
+        if (a=='F') {
+            result = rotateSt(flipSt(trans));
         }
-        if (a=='A') {
-            result = trans;
+        if (a=='G') {
+            result = rotateSt(rotateSt(flipSt(trans)));
+        }
+        if (a=='H') {
+            result = rotateSt(rotateSt(rotateSt(flipSt(trans))));
         }
 
         return result;
@@ -145,11 +147,11 @@ public enum Pieces {
 
 /**
  AA(new String[] {"ALU","XYZ"}),AB(new String[] {"ACL"}),AC(new String[] {"CLW"}),AD(new String[] {"ULW"}),
- AE(new String[] {"KBM"}),AF(new String[] {"BMV"}),AG(new String[] {"KVM"}),AH(new String[] {"BKV"}),
- BA(new String[] {"LW" }),BB(new String[] {"LU" }),BC(new String[] {"AL"} ),BD(new String[] {"CL" }),
- BE(new String[] {"BKV"}),BF(new String[] {"KBM"}),BG(new String[] {"BMV"}),BH(new String[] {"KMV"}),
- CA(new String[] {"UL" }),CB(new String[] {"AL" }),CC(new String[] {"LC" }),CD(new String[] {"LW"}),
- CE(new String[] {"BKV"}), //AE (new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
+ AE(new String[] {"KBM"}),  AF(new String[] {"BMV"}),AG(new String[] {"KVM"}),AH(new String[] {"BKV"}),
+ BA(new String[] {"LW" }),  BB(new String[] {"LU" }),BC(new String[] {"AL"} ),BD(new String[] {"CL" }),
+ BE(new String[] {"BKV"}),  BF(new String[] {"KBM"}),BG(new String[] {"BMV"}),BH(new String[] {"KMV"}),
+ CA(new String[] {"UL" }),  CB(new String[] {"AL" }),CC(new String[] {"LC" }),CD(new String[] {"LW"}),
+ CE(new String[] {"BKV"}),//AE (new String[]{"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
  DA(new String[] {"LW" }),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
  DB(new String[] {"LU" }),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
  DE(new String[] {"BMV"}),//AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),AE(new String[] {"KBM"}),
