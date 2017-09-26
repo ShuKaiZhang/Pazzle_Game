@@ -58,8 +58,7 @@ public enum Pieces {
         for (int i = 0; i < a.length(); i++){
             result = result + flip(a.charAt(i));
         }
-        System.out.println(rotate('A'));
-        System.out.println(location("ABl"));
+        System.out.println(location("BFc"));
     }
 
     public static String flipSt (String str){
@@ -133,12 +132,23 @@ public enum Pieces {
 
     public static String location (String placement) {
         String result = "";
+        String finalresult="";
         for (int i =0; i <placement.length(); i = i +3){
             String originpiece   = placement.substring(i,i+1); // AAL
-            String origin  =  Pieces.valueOf(originpiece).original[0]; // ALC
-            String sda =  transformation(origin,placement.charAt(i+1));
+            String origin1  =  Pieces.valueOf(originpiece).original[0]; // ALC
+            String origin2  =  Pieces.valueOf(originpiece).original[1];
+            char trans = placement.charAt(i+1);
             char location = placement.charAt(i+2);
-            result = result + movepiece(sda,location);
+            if (trans>='A'&& trans<='D'){
+                String sda1 =  transformation(origin1,trans);//1st level
+                String sda2 =  transformation(origin2,trans);//2nd level
+                result = result + movepiece(sda1,location)+ movepiece(sda2,location);
+
+            }else{
+                String sda1 =  transformation(origin2,trans);//1st level
+                String sda2 =  transformation(origin1,trans);//2nd level
+                result = result + movepiece(sda1,location)+movepiece(sda2,location);
+            }
         }
         return result;
     }

@@ -121,23 +121,14 @@ public class StepsGame{
      * @return True if the placement sequence is valid
      */
     // FIXME Task 5: determine whether a placement sequence is valid
+    public static void main(String[] args) {
+        
+    }
 
     static boolean isPlacementSequenceValid(String placement) {
 
         boolean result = false;
 
-        /*
-         String location = Pieces.location(placement);
-        for (int i =0; i < location.length();i++){
-            if (location.charAt(i)<'A' || location.charAt(i)>'y'){
-                return false;
-            }
-            if (location.charAt(i)>'Y' && location.charAt(i)< 'a'){
-                return false;
-            }
-
-        }
-         */
 
         if (isPlacementWellFormed(placement)) {
             if (Pieces.location(placement) == placement.replaceAll("(.)\\1{1,}", "$1")) {
