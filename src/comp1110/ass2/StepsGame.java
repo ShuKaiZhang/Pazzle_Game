@@ -129,13 +129,36 @@ public class StepsGame{
 
         boolean result = false;
 
+        String coord = Pieces.location(placement);
 
-        if (isPlacementWellFormed(placement)) {
-            if (Pieces.location(placement) == placement.replaceAll("(.)\\1{1,}", "$1")) {
-                result = true;
+        String rdup = "";
+
+        for (int i = 0; i< coord.length(); i++) {
+            int count = 1;
+
+            for (int j = i+1; j < coord.length(); j++) {
+                if (coord.charAt(i) == coord.charAt(j)) {
+                    count++;
+                }
+            }
+            if (count == 1){
+                rdup += coord.charAt(i);
+            }
+        }
+            if (isPlacementWellFormed(placement)){
+                if (rdup.equals(coord)){
+                    for (int a = 0;a<coord.length();a++ ){
+                        if ((coord.charAt(a)<='Y'&&coord.charAt(a)>='A')||(coord.charAt(a)<='y'&&coord.charAt(a)>='a')){
+                            result = true;
+                        }
+                        else return false;
+                    }
+                }
             }
 
-        }
+
+
+
         return result;
     }
 
