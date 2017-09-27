@@ -52,14 +52,6 @@ public enum Pieces {
 
 
 
-    public static void main(String[] args) {
-        String a = "ALU";
-        String  result = "";
-        for (int i = 0; i < a.length(); i++){
-            result = result + flip(a.charAt(i));
-        }
-        System.out.println(location("BFc"));
-    }
 
     public static String flipSt (String str){
         String result = "";
