@@ -37,16 +37,13 @@ public class StepsGame{
         // FIXME Task 2: determine whether a piece placement is well-formed
         if (piecePlacement.length() ==3) {
             if ((charAtoH(piecePlacement.charAt(0))) && (charAtoH(piecePlacement.charAt(1)))){
-                if ((piecePlacement.charAt(2))>='A' && (piecePlacement.charAt(2) <= 'Y')) {
-                    return  true;
-                }
-                if ((piecePlacement.charAt(2))>='a' && (piecePlacement.charAt(2) <= 'y')) {
-                    return  true;
-                }
+                if ((piecePlacement.charAt(2))>='A' && (piecePlacement.charAt(2) <= 'Y')) {return  true;}
+                if ((piecePlacement.charAt(2))>='a' && (piecePlacement.charAt(2) <= 'y')) {return  true;}
             }
         }
         return false;
     }
+
 
 
     /**
@@ -58,7 +55,8 @@ public class StepsGame{
      * @param placement A string describing a placement of one or more pieces
      * @return True if the placement is well-formed
      */
-    static String duplicateString (String input){
+
+    static String duplicateString (String input){       //tested
         String result = "";
         for (int i = 0; i < input.length(); i++) {
             if(!result.contains(String.valueOf(input.charAt(i)))) {
@@ -66,6 +64,11 @@ public class StepsGame{
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(duplicateString("AAB"));
+
     }
 
     static boolean isPlacementWellFormed(String placement) {
@@ -121,9 +124,6 @@ public class StepsGame{
      * @return True if the placement sequence is valid
      */
     // FIXME Task 5: determine whether a placement sequence is valid
-    public static void main(String[] args) {
-        
-    }
 
     static boolean isPlacementSequenceValid(String placement) {
         boolean result = false;
@@ -154,10 +154,6 @@ public class StepsGame{
                     }
                 }
             }
-
-
-
-
         return result;
     }
 

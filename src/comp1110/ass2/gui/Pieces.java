@@ -1,6 +1,7 @@
 package comp1110.ass2.gui;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Alex on 29/8/17.
@@ -36,6 +37,10 @@ public enum Pieces {
         return result;
     }
 
+    public static void main(String[] args) {
+        System.out.println( movepiece("ALUAA",'l'));
+    }
+
     public static char flip(char piece) {
         char result = '.';
         if (piece=='A') {result = 'C';}
@@ -53,13 +58,14 @@ public enum Pieces {
 
 
 
-    public static String flipSt (String str){
+    public static String flipSt (String str){ // flip implies flipst, so if flipst is true, flip must be true.
         String result = "";
         for (int i = 0; i < str.length(); i++){
             result = result + flip(str.charAt(i));
         }
         return  result;
     }
+
     public static String rotateSt (String str){
         String result = "";
         for (int i = 0; i < str.length(); i++){
@@ -91,6 +97,10 @@ public enum Pieces {
     }
 
 
+    // test transformation
+    // flip implies flipst
+    // flipst implies transformation
+    // therefore if transformation pass the test, then flip, flipst, rotate, rotatest are all true.
     public static String transformation (String trans,char a) { // ALM, B
         String result = "";
 
