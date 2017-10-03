@@ -125,7 +125,7 @@ public class StepsGame{
      */
     // FIXME Task 5: determine whether a placement sequence is valid
 
-    static boolean isPlacementSequenceValid(String placement) {
+    public static boolean isPlacementSequenceValid(String placement) {
         boolean result = false;
 
         String coord = Pieces.location(placement);

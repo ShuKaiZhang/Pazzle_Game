@@ -1,5 +1,6 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.StepsGame;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -26,7 +27,7 @@ public class Board extends Application {
     private final Group masks = new Group();
     private final Group board = new Group();
     private final Group root = new Group();
-    char[] maskstate = new char[8];
+    String [] maskstate = new String[8];
     Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
     private void makeBoard() {
         for (int i = 0; i < 15; i++) {
@@ -108,29 +109,51 @@ public class Board extends Application {
         private void rotate() {
 
                 setRotate((getRotate() + 90) % 360);
+                setPosition();
+
+        }
+        private void setPosition() {
+            int x = (int)getLayoutX()-200;
+            int y = (int)getLayoutY()-200;
+            char a =' ';
+            if(x<=240&& y<=120){
+            a = (char)((x/SQUARE_SIZE)+(y/60*10)+'A');
+            }else{a = (char)(((x-300)/SQUARE_SIZE)+((y-120)/60*10)+'a');}
+            char rotate = (char)('A'+ (int)(getRotate() / 90));
+            String val="";
+            val += mask;
+            val+= rotate;
+            val += a;
+            maskstate [mask-'A'] = val;
 
         }
         private void snapToGrid() {
             if (onBoard()) {
-                setLayoutX((BOARD_WIDTH/2)+getLayoutX());
-                setLayoutY((BOARD_HEIGHT/2)+getLayoutY());
+                setLayoutX((int)(getLayoutX()/60)*60.0+20);
+                setLayoutY((int)(getLayoutY()/60)*60.0+20);
+                setPosition();
             } else {
                 snapToHome();
             }
 
         }
         private boolean onBoard() {
-            return getLayoutX() > (200) && (getLayoutX() < (300))
-                    && getLayoutY() > (200) && (getLayoutY() < (300));
+            /* return getLayoutX() > (120) && (getLayoutX() < (580))
+                    && getLayoutY() > (120) && (getLayoutY() < (300)); */
+            //return StepsGame.isPlacementSequenceValid(maskstate[mask-'A']);
+            return true;
         }
         private void snapToHome() {
             setLayoutX(homeX);
             setLayoutY(homeY);
+            setFitHeight(120);
+            setFitWidth(120);
             setRotate(0);
         }
 
 
     }
+
 
     private void makeMasks() {
 
