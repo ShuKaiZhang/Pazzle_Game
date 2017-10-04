@@ -32,6 +32,7 @@ public class Board extends Application {
     private final Group root = new Group();
     String [] maskstate = new String[8];
     String Masks = "";
+    int count = 0;
     Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
     private void makeBoard() {
         for (int i = 0; i < 15; i++) {
@@ -100,6 +101,7 @@ public class Board extends Application {
                 mouseY = event.getSceneY();
                 setFitHeight(PIECE_IMAGE_SIZE);
                 setFitWidth(PIECE_IMAGE_SIZE);
+                check();
                 event.consume();}
             });
 
@@ -126,13 +128,19 @@ public class Board extends Application {
 
         private void rotate() {
 
-                setRotate((getRotate() + 90) % 360);
-
+            setRotate((getRotate() + 90) % 360);
         }
+        private void check() {
+            if (maskstate[mask-'A'] != null){
+                Masks=Masks.replace(maskstate[mask-'A'],"");
+            }
+        }
+
         private void flip() {
-
-
-
+            count +=1;
+            if (count%2==1){
+            setImage(new Image(Board.class.getResource(URI_BASE + mask+'E' + ".png").toString()));}
+            else {setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));}
         }
         private void setPosition() {
             int x = ((int)getLayoutX()-80)/SQUARE_SIZE;
@@ -144,7 +152,8 @@ public class Board extends Application {
             char rotate = (char)('A'+ (int)(getRotate() / 90));
             String val="";
             val += mask;
-            val+= rotate;
+            if (count%2==0){val+= rotate;}
+            else{val+= (char)(rotate+4);}
             val += pos;
             maskstate [mask-'A'] = val;
 
