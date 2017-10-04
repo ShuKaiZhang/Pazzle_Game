@@ -107,6 +107,9 @@ public class Board extends Application {
 
 
             setOnMouseDragged(event -> {
+                if (checktop()){
+                if (maskstate[mask - 'A'] != null) {
+                    String z = (Masks.replace(maskstate[mask - 'A'], "")+maskstate[mask - 'A']); }
                 toFront();
                 double movementX = event.getSceneX() - mouseX;
                 double movementY = event.getSceneY() - mouseY;
@@ -114,21 +117,30 @@ public class Board extends Application {
                 setLayoutY(getLayoutY() + movementY);
                 mouseX = event.getSceneX();
                 mouseY = event.getSceneY();
-                event.consume();
+
+                event.consume();}
+
             });
             setOnMouseReleased(event -> {
+                if (checktop()){
                 snapToGrid();
-                event.consume();
+                event.consume();}
 
             });
 
 
 
         }
+        private boolean checktop() {
+            if (maskstate[mask - 'A'] != null) {
+                return StepsGame.isPlacementSequenceValid(Masks.replace(maskstate[mask - 'A'], "")+maskstate[mask - 'A']);
+            }if (maskstate[mask - 'A'] == null){return true;}
+            else return false;
+        }
 
         private void rotate() {
-
-            setRotate((getRotate() + 90) % 360);
+            if (maskstate[mask - 'A'] == null) {
+            setRotate((getRotate() + 90) % 360);}
         }
         private void check() {
             if (maskstate[mask-'A'] != null){
@@ -137,10 +149,11 @@ public class Board extends Application {
         }
 
         private void flip() {
+            if (maskstate[mask - 'A'] == null) {
             count +=1;
             if (count%2==1){
             setImage(new Image(Board.class.getResource(URI_BASE + mask+'E' + ".png").toString()));}
-            else {setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));}
+            else {setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));}}
         }
         private void setPosition() {
             int x = ((int)getLayoutX()-80)/SQUARE_SIZE;
@@ -168,7 +181,9 @@ public class Board extends Application {
                         Masks +=maskstate[mask-'A'];setPosition();
                     }else {snapToHome();}
 
-                }else {
+                }
+                else {
+                    maskstate [mask-'A'] = null;
                     snapToHome();
                 }
         }
