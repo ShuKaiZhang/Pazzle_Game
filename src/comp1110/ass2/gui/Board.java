@@ -194,7 +194,7 @@ public class Board extends Application {
 
     private void makeMasks() {
 
-            char piece[]={'A','B','C','D','E','F','G','H'};
+
             for (int i = 0;i<4;i++) {
                 masks.getChildren().add(new DraggableFXMask((char)('A'+i)));
 
