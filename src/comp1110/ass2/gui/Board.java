@@ -55,7 +55,6 @@ public class Board extends Application {
 
             setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));
             this.mask = mask;
-
         }
 
     }
