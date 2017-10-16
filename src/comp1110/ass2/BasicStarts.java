@@ -5,9 +5,9 @@ import java.util.Random;
 public class BasicStarts {
     Random rand = new Random();
     int random = rand.nextInt(2);
-    String starter [] = {"AHGBGSCDNDAiEFBGCgHFl", "AEnBBgCCpDDlEGBFAiGCM", "AALCFjDBgEDSECMGANECP"};
-    String hard [] = {"CCLEEgEBi", "CGNGDLAGjEAg", "BGSDGQEFBGHn"};
-    String master [] = {"BEeEEfFBm", "CGOEEnCDL", "AFnEFBGFS"};
+    String starter [] = {"DAiAHQBGSCDNEFBGCgHFl", "DElAFnFAiBBgCCQEGLGCM", "CFjGANAALDBgHEQFCmEDI"};
+    String hard [] = {"CCLEEgFBj", "CGOGDLAGjEAg", "BGSDGQEFBGHn"};
+    String master [] = {"FBmBEeEEf", "CGOEEnGDL", "AFnEFBGFS"};
     public String finalString;
 
     public String starterStarts(){
