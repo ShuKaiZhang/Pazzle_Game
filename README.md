@@ -61,7 +61,7 @@ that is *not* a peg.
 
 ![board](assets/locations.png)
 
-#### Pieces
+#### comp1110.ass2.gui.Pieces
 
 The game comprises **8 playing shapes**, each of which is made of
 plastic and consists of five or six flat rings arranged in **two
