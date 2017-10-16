@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+
 public class Board extends Application {
 
 
@@ -25,7 +26,8 @@ public class Board extends Application {
     private final Group root = new Group();
     String [] maskstate = new String[8];
     String Masks = "";
-    int count = 0;
+    int [] count = new int[8];
+
     Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
     private void makeBoard() {
         for (int i = 0; i < 15; i++) {
@@ -55,6 +57,7 @@ public class Board extends Application {
 
             setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));
             this.mask = mask;
+
         }
 
     }
@@ -76,11 +79,12 @@ public class Board extends Application {
 
 
             setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.SECONDARY)
-                        {   flip();
-                            event.consume();
-                        }
-                    });
+                if (event.getButton() == MouseButton.SECONDARY )
+
+                { flip();
+                    event.consume();
+                }
+            });
 
             setOnScroll(event -> {
                 rotate();
@@ -89,39 +93,46 @@ public class Board extends Application {
 
             setOnMousePressed(event -> {
                 if (event.getButton() == MouseButton.PRIMARY){
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
-                setFitHeight(PIECE_IMAGE_SIZE);
-                setFitWidth(PIECE_IMAGE_SIZE);
-                check();
-                event.consume();}
+                    mouseX = event.getSceneX();
+                    mouseY = event.getSceneY();
+                    setFitHeight(PIECE_IMAGE_SIZE);
+                    setFitWidth(PIECE_IMAGE_SIZE);
+                    check();
+                    event.consume();}
             });
 
 
             setOnMouseDragged(event -> {
                 if (checktop()){
-                if (maskstate[mask - 'A'] != null) {
-                    String z = (Masks.replace(maskstate[mask - 'A'], "")+maskstate[mask - 'A']); }
-                toFront();
-                double movementX = event.getSceneX() - mouseX;
-                double movementY = event.getSceneY() - mouseY;
-                setLayoutX(getLayoutX() + movementX);
-                setLayoutY(getLayoutY() + movementY);
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
+                    if (maskstate[mask - 'A'] != null) {
+                        String z = (Masks.replace(maskstate[mask - 'A'], "")+maskstate[mask - 'A']); }
+                    toFront();
+                    double movementX = event.getSceneX() - mouseX;
+                    double movementY = event.getSceneY() - mouseY;
+                    setLayoutX(getLayoutX() + movementX);
+                    setLayoutY(getLayoutY() + movementY);
+                    mouseX = event.getSceneX();
+                    mouseY = event.getSceneY();
 
-                event.consume();}
+                    event.consume();}
 
             });
             setOnMouseReleased(event -> {
-                if (checktop()){
-                snapToGrid();
-                event.consume();}
+                if (checktop()&&event.getButton() == MouseButton.PRIMARY){
+                    snapToGrid();
+                    System.out.println(Masks);
+                    event.consume(); }
 
             });
 
 
 
+        }
+        private  boolean checkpos(){
+            int x = ((int)getLayoutX()-80)/SQUARE_SIZE;
+            int y = ((int)getLayoutY()-80)/SQUARE_SIZE;
+            if (x>=0&&x<=10&&y>=0&&y<=5){return true;}
+            else return false;
         }
         private boolean checktop() {
             if (maskstate[mask - 'A'] != null) {
@@ -132,9 +143,10 @@ public class Board extends Application {
 
         private void rotate() {
             if (maskstate[mask - 'A'] == null) {
-            setRotate((getRotate() + 90) % 360);}
+                setRotate((getRotate() + 90) % 360);}
         }
         private void check() {
+
             if (maskstate[mask-'A'] != null){
                 Masks=Masks.replace(maskstate[mask-'A'],"");
             }
@@ -142,22 +154,23 @@ public class Board extends Application {
 
         private void flip() {
             if (maskstate[mask - 'A'] == null) {
-            count +=1;
-            if (count%2==1){
-            setImage(new Image(Board.class.getResource(URI_BASE + mask+'E' + ".png").toString()));}
-            else {setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));}}
+                count[mask - 'A'] +=1;
+                if (count[mask - 'A']==1){
+                    setImage(new Image(Board.class.getResource(URI_BASE + mask+'E' + ".png").toString()));}
+                else {setImage(new Image(Board.class.getResource(URI_BASE + mask+'A' + ".png").toString()));
+                    count[mask - 'A']=0;}}
         }
         private void setPosition() {
             int x = ((int)getLayoutX()-80)/SQUARE_SIZE;
             int y = ((int)getLayoutY()-80)/SQUARE_SIZE;
             char pos =' ';
             if((x+y*10)<=24){
-            pos = (char)(x+(y*10)+'A');
+                pos = (char)(x+(y*10)+'A');
             }else{pos = (char)((x-5)+((y-2)*10)+'a');}
             char rotate = (char)('A'+ (int)(getRotate() / 90));
             String val="";
             val += mask;
-            if (count%2==0){val+= rotate;}
+            if (count[mask - 'A']==0){val+= rotate;}
             else{val+= (char)(rotate+4);}
             val += pos;
             maskstate [mask-'A'] = val;
@@ -165,19 +178,20 @@ public class Board extends Application {
         }
 
         private void snapToGrid() {
-                setLayoutX((int)(getLayoutX()/60)*60.0+20);
-                setLayoutY((int)(getLayoutY()/60)*60.0+20);
-                setPosition();
-                if (StepsGame.isPlacementSequenceValid(maskstate[mask-'A'])){
-                    if(StepsGame.isPlacementSequenceValid(Masks+maskstate[mask-'A'])){
-                        Masks +=maskstate[mask-'A'];setPosition();
-                    }else {snapToHome();}
+            setLayoutX((int)(getLayoutX()/60)*60.0+20);
+            setLayoutY((int)(getLayoutY()/60)*60.0+20);
+            setPosition();
+            if (checkpos()&&StepsGame.isPlacementSequenceValid(maskstate[mask-'A'])){
+                if(StepsGame.isPlacementSequenceValid(Masks+maskstate[mask-'A'])){
+                    Masks +=maskstate[mask-'A'];setPosition();
+                }else {
+                    snapToHome();}
 
-                }
-                else {
-                    maskstate [mask-'A'] = null;
-                    snapToHome();
-                }
+            }
+            else {
+                maskstate [mask-'A'] = null;
+                snapToHome();
+            }
         }
 
         private void snapToHome() {
@@ -194,13 +208,13 @@ public class Board extends Application {
 
     private void makeMasks() {
 
+        char piece[]={'A','B','C','D','E','F','G','H'};
+        for (int i = 0;i<4;i++) {
+            masks.getChildren().add(new DraggableFXMask((char)('A'+i)));
 
-            for (int i = 0;i<4;i++) {
-                masks.getChildren().add(new DraggableFXMask((char)('A'+i)));
-
-            }
-            for (int i = 0;i<4;i++){
-                masks.getChildren().add(new DraggableFXMask(((char)('E'+i))));
+        }
+        for (int i = 0;i<4;i++){
+            masks.getChildren().add(new DraggableFXMask(((char)('E'+i))));
         }
 
 
