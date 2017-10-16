@@ -1,8 +1,8 @@
 We declare that the work toward our submission of Stage F was distributed among the group members as follows:
 
-* u2345678 30
-* u3456789 40
-* u0123456 30
+* u5540796 40
+* u5686922 40
+* u5845250 20
 
-Signed: Mary Jones (u2345678), Bob Smith (u3456789), and Sue Black (u0123456)
+Signed: Zhuangzhuang Niu (u5540796), Shukai Zhang (u5686922), and Vithuran Jeyasingham (u5845250)
 
