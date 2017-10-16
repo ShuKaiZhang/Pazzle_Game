@@ -1,8 +1,10 @@
 package comp1110.ass2;
 
+import com.sun.corba.se.impl.interceptors.PICurrent;
 import comp1110.ass2.gui.Pieces;
-
+import javax.print.DocFlavor;
 import javax.swing.text.Style;
+import java.io.StringReader;
 import java.time.temporal.ValueRange;
 import java.util.*;
 
@@ -163,7 +165,8 @@ public class StepsGame{
         for (int i =0; i< a.length();i++){
             if (c!=a.charAt(i)){
                 result = false;
-            }else {secondLevel=a.replace(a.charAt(i),' ');return true;}
+            }else {secondLevel=a.replace(a.charAt(i),' ');
+            return true;}
         }
 
         return result;
@@ -204,93 +207,47 @@ public class StepsGame{
      * @param objective A valid game objective, but not necessarily a valid placement string
      * @return An set of viable piece placements
      */
-    static List<String> reorder(String obj, String rest){
-        List<String> result = new ArrayList<>();
-        if (obj.length()==0) {
-            result.add(rest);
+    static ArrayList<String> reset(String objective, String onBoard){
+        ArrayList<String> result = new ArrayList<>();
+
+        if (objective.length()==0) {
+            result.add(onBoard);
         }
-        for (int i = 0;i< obj.length();i+=3){
-            if (isPlacementSequenceValid(rest + obj.substring(i,i+3))){
-                List<String> next = reorder(new StringBuilder(obj).delete(i,i+3).toString(),rest + obj.substring(i,i+3));
-                result.addAll(next);
-            } else {
+        for (int i = 0;i< objective.length();i=i+3){
+            String piece = objective.substring(i,i+3);
+            if (!isPlacementSequenceValid(onBoard + piece)){
                 break;
+            } else { // StringBuilder https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html
+                List<String> next = reset(new StringBuilder(objective).delete(i,i+3).toString(),
+                        onBoard + objective.substring(i,i+3));
+                result.addAll(next);
             }
         }
         return result;
     }
 
+
+
     // FIXME Task 6: determine the correct order of piece placements
     static Set<String> getViablePiecePlacements(String placement, String objective) {
-        Set<String> set = new HashSet<>();
-        List<String> result =reorder(objective,"");
-        for (String i: result){
-            if (placement.length() == 0){
-                set.add(i.substring(0,3));
+        Set<String> result = new HashSet<>();
+        ArrayList<String> list = reset(objective,"");
+        int length = placement.length();
+        for (String i: list){
+            String piece=i.substring(0,3);
+            System.out.println("piece: " +piece);
+
+            if (length == 0){
+                result.add(piece);
             }
-            else if(i.substring(0,placement.length()).equals(placement)&&i.length()!=placement.length()){
-                set.add(i.substring(placement.length(),placement.length()+3));
+            else if(i.substring(0,length).equals(placement)
+                    && length!=24) {
+                result.add(i.substring(length,length+3));
             }
         }
-        return set;
+        return result;
     }
 
-//    static Set<String> getViablePiecePlacements(String placement, String objective) {
-//        // FIXME Task 6: determine the correct order of piece placements
-//        Set<String> result= new HashSet<>();
-//        ArrayList<String > candidate = new ArrayList<>();
-//        for(int i =0;i< objective.length();i=i+3){
-//            String pieceObjective = objective.substring(i,i+3);
-//            candidate.add(pieceObjective);
-//            result.add(pieceObjective);
-//        }
-//        for(int i =0;i< placement.length();i=i+3){
-//            String piecePlacement = placement.substring(i,i+3);
-//            candidate.remove(piecePlacement);
-//            result.remove(piecePlacement);
-//        }
-//        System.out.println(candidate);
-//        for (int i = 0; i<5;i++){ // 5 times
-//            String placementTest =placement;
-//            System.out.println(candidate.get(i)+" "+ i+ " big!");
-//            placementTest += candidate.get(i);
-//            if(isPlacementSequenceValid(placementTest)) {
-//                System.out.println(placementTest + " i " + i+ " placementTest");
-//                for (int j = i; j< i+5-j;j++){
-//
-//                    placementTest += candidate.get(j+1);
-//
-//                    System.out.println(placementTest+"  "+  j+ "  j  5555");
-//
-//                    if (!isPlacementSequenceValid(placementTest)){
-//                        System.out.println("remove!!");
-//                        System.out.println();
-//                        result.remove(candidate.get(j));
-//                        break;
-//                    }
-//
-//                    candidate.add(candidate.get(j-i));
-//                    System.out.println(candidate+"  candidate");
-//                }
-//            }
-//
-//        }
-//        System.out.println(result + " "+ " result!!!");
-//        return result;
-//    }
-
-    public static void main(String[] args) {
-        System.out.println(isPlacementSequenceValid("BAN"));
-        System.out.println(isPlacementSequenceValid("CAL"));
-        System.out.println(isPlacementSequenceValid("DAM"));
-        System.out.println(isPlacementSequenceValid("AAL"));
-        System.out.println(isPlacementSequenceValid("CEQEHu")+"!@#");
-        System.out.println(firstLevel);
-        System.out.println(secondLevel);
-
-        System.out.println(isPlacementWellFormed("AAlBAL")+"!!");
-
-    }
 
     /**
      * Return an array of all solutions to the game, given a starting placement.
@@ -299,8 +256,49 @@ public class StepsGame{
      * @return An array of strings, each describing a solution to the game given the
      * starting point provided by placement.
      */
+    static String  getCandidatePiece (String placement){
+        String result = "ABCDEFGH";
+        for(int i =0; i<placement.length();i=i+3){
+            String shape = placement.substring(i,i+1);
+            result=result.replace(shape,"");
+        }
+        return result;
+    }
+
+    static String[] getCandidateLocation (String placement){ //3 piece -> 18 //  32
+        String[] result = new String[2];
+        String location0 = Pieces.location(placement)[0];
+        String location1 = Pieces.location(placement)[1];
+        result[0] = firstLevel;
+        result[1] = secondLevel;
+
+        for(int i =0; i <location0.length();i++){
+            result[0] =result[0].replace(location0.charAt(i)+"","");
+        }
+        for(int i =0; i <location1.length();i++){
+            result[1] =result[1].replace(location1.charAt(i)+"","");
+
+        }
+        return  result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(firstLevel);
+        System.out.println(Pieces.location("BGSAHQEFBGCgCDNHFlDAiFHn")[0]);
+        System.out.println(getCandidateLocation("BGSAHQEFBGCgCDNHFlDAiFHn")[0]);
+////        System.out.println(reset("DBgGAiFCNBGKCFlAFnHHSECP",""));
+//        System.out.println(getViablePiecePlacements("BGKFCNCFl","DBgGAiFCNBGKCFlAFnHHSECP"));
+
+    }
+
     static String[] getSolutions(String placement) {
         // FIXME Task 9: determine all solutions to the game, given a particular starting placement
-        return null;
+        String [] result =new String[2];
+        String candidatePiece = getCandidatePiece(placement);
+        for(int i =0;i<=candidatePiece.length();i++){
+        }
+
+
+        return result;
     }
 }
