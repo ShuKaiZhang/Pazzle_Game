@@ -27,7 +27,6 @@ public class Board extends Application {
     String [] maskstate = new String[8];
     String Masks = "";
     int [] count = new int[8];
-
     Scene scene = new Scene(root, BOARD_WIDTH, BOARD_HEIGHT);
     private void makeBoard() {
         for (int i = 0; i < 15; i++) {

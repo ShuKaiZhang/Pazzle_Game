@@ -139,8 +139,7 @@ public class StepsGame{
                         return false;
                     }
                 }
-            }
-            locate +=location2;
+            }locate+=location2;
         }
         return result;
     }
