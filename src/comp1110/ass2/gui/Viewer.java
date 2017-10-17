@@ -41,7 +41,7 @@ public class Viewer extends Application {
 
     class Square extends ImageView {
 
-        Square(String id) {
+        public Square(String id) {
             if(id.charAt(1)=='A'){
                 setImage(new Image(Viewer.class.getResource(URI_BASE + id.charAt(0)+'A' + ".png").toString()));
                 setRotate(0);
@@ -100,7 +100,7 @@ public class Viewer extends Application {
      *
      * @param placement  A valid placement string
      */
-    void makePlacement(String placement) {
+    public void makePlacement(String placement) {
         square.getChildren().clear();
         int s = 0;
         // FIXME Task 4: implement the simple placement viewer

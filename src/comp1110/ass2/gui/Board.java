@@ -245,7 +245,11 @@ public class Board extends Application {
         easyBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                for(int i =0;i<().length()/3;i++) {
+                    String storage = placement.substring(s,s+3);
+                    s+=3;
+                    square.getChildren().add(new Viewer.Square(storage));
+                }
             }
         });
 
