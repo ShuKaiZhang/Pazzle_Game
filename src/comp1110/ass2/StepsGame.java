@@ -1,10 +1,8 @@
 package comp1110.ass2;
 
-import com.sun.corba.se.impl.interceptors.PICurrent;
 import comp1110.ass2.gui.Pieces;
-import javax.print.DocFlavor;
+
 import javax.swing.text.Style;
-import java.io.StringReader;
 import java.time.temporal.ValueRange;
 import java.util.*;
 
@@ -59,7 +57,6 @@ public class StepsGame{
      * @param placement A string describing a placement of one or more pieces
      * @return True if the placement is well-formed
      */
-
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
         boolean result;
@@ -103,17 +100,18 @@ public class StepsGame{
      * @param placement A placement sequence string
      * @return True if the placement sequence is valid
      */
-    public static void main(String[] args) {
-        System.out.println((char)97);
-    }
     // FIXME Task 5: determine whether a placement sequence is valid
+
+
+
+
     public static boolean checkaround (char x, char j){
         boolean result = false;
-        int a;
-        int b;
+        int a = 0;
+        int b = 0;
         if(x<='Y'){
-            a = (int)x - 'A';
-        }else {a = (int)x - 'a'+ 25;}
+            a = (int)x - 65;
+        }else {a = (int)x - 97+25;}
         if(j<='Y'){
             b = (int)j - 65;
         }else {b = (int)j - 97+25;}
@@ -147,45 +145,48 @@ public class StepsGame{
     }
     public static String firstLevel = "ACEGILNPRTUWYbdgikmoprtvx";
     public static String secondLevel = "BDFHJKMOQSVXacefhjlnqsuwy";
-    public static boolean check (char c, String a){
+    public static boolean checkfirst (char c, String a){
         boolean result = true;
         for (int i =0; i< a.length();i++){
             if (c!=a.charAt(i)){
-                if(a.equals(firstLevel)){
-                    firstLevel=a.replace(a.charAt(i),' ');
-                    return true;
-                }else{
-                    secondLevel=a.replace(a.charAt(i),' ');
-                    return true;
-
-                }
-
-            }else {
-                return false;
-                }
+                result = false;
+            }else {firstLevel=a.replace(a.charAt(i),' ');
+                return true;}
         }
+
         return result;
     }
 
 
+    public static boolean checksecond (char c, String a){
+        boolean result = true;
+        for (int i =0; i< a.length();i++){
+            if (c!=a.charAt(i)){
+                result = false;
+            }else {secondLevel=a.replace(a.charAt(i),' ');return true;}
+        }
+
+        return result;
+    }
+
     public static boolean isPlacementSequenceValid(String placement) {
-        boolean result;
+        boolean result = true;
         firstLevel = "ACEGILNPRTUWYbdgikmoprtvx";
         secondLevel = "BDFHJKMOQSVXacefhjlnqsuwy";
         if (isPlacementWellFormed(placement)){
             String[] coord = Pieces.location(placement);
             for (int a = 0;a<coord[0].length();a++ ){
-                if (!check((coord[0].charAt(a)),firstLevel)){
-                    return false;
+                if (checkfirst((coord[0].charAt(a)),firstLevel)){
+                    result = true;
                 }
+                else return false;
             }
             for (int b = 0;b<coord[1].length();b++ ){
-                if (!check((coord[1].charAt(b)),secondLevel)){
-                    return false;
+                if (checksecond((coord[1].charAt(b)),secondLevel)){
+                    result = true;
                 }
-            }
-        }
-
+                else return false;}
+        }else return false;
         if (checkdup(placement)){
             result = true;
         }else return false;
@@ -231,6 +232,8 @@ public class StepsGame{
         int length = placement.length();
         for (String i: list){
             String piece=i.substring(0,3);
+            System.out.println("piece: " +piece);
+
             if (length == 0){
                 result.add(piece);
             }
