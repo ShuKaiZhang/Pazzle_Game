@@ -3,11 +3,15 @@ package comp1110.ass2.gui;
 
 import comp1110.ass2.StepsGame;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -228,11 +232,59 @@ public class Board extends Application {
         root.getChildren().add(masks);
         makeBoard();
         makeMasks();
+        Button easyBtn = new Button();
+        easyBtn.setText("Easy");
 
 
         primaryStage.setTitle("StepsGame Board");
         primaryStage.setScene(scene);
         primaryStage.show();
+        root.getChildren().add(easyBtn);
+        easyBtn.setLayoutX(40);
+        easyBtn.setLayoutY(100);
+        easyBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+
+        Button hardBtn = new Button();
+        hardBtn.setText("Hard");
+
+
+        primaryStage.setTitle("StepsGame Board");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        root.getChildren().add(hardBtn);
+        hardBtn.setLayoutX(40);
+        hardBtn.setLayoutY(150);
+        hardBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        Button masterBtn = new Button();
+        masterBtn.setText("Master");
+
+
+        primaryStage.setTitle("StepsGame Board");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        root.getChildren().add(masterBtn);
+        masterBtn.setLayoutX(40);
+        masterBtn.setLayoutY(200);
+        masterBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+
 
     }
     // FIXME Task 7: Implement a basic playable Steps Game in JavaFX that only allows pieces to be placed in valid places
