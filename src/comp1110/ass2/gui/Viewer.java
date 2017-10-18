@@ -39,7 +39,7 @@ public class Viewer extends Application {
     private final Group square = new Group();
     TextField textField;
 
-    class Square extends ImageView {
+    static class Square extends ImageView {
 
         public Square(String id) {
             if(id.charAt(1)=='A'){
