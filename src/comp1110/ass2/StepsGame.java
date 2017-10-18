@@ -2,8 +2,6 @@ package comp1110.ass2;
 
 import comp1110.ass2.gui.Pieces;
 
-import javax.swing.text.Style;
-import java.time.temporal.ValueRange;
 import java.util.*;
 
 
@@ -80,9 +78,7 @@ public class StepsGame{
             String piece1 = placement.substring(3 * i, 3 * (i + 1));
             for (int j = i + 1; j < pieceAmount; j++) {
                 String piece2 = placement.substring(3 * j, 3 * (j + 1));
-                char pieceName1 = piece1.charAt(0);
-                char pieceName2 = piece2.charAt(0);
-                if (pieceName1 == pieceName2) {
+                if (piece1.charAt(0) ==piece2.charAt(0)) {
                     noDuplicate = false;
                 }
             }
@@ -105,10 +101,10 @@ public class StepsGame{
 
 
 
-    public static boolean checkaround (char x, char j){
+    public static boolean checkAround (char x, char j){
         boolean result = false;
-        int a = 0;
-        int b = 0;
+        int a;
+        int b;
         if(x<='Y'){
             a = (int)x - 65;
         }else {a = (int)x - 97+25;}
@@ -126,7 +122,7 @@ public class StepsGame{
 
 
 
-    public static boolean checkdup (String placement){
+    public static boolean checkDup (String placement){
         boolean result = true;
         String locate = Pieces.location(placement.substring(0,3))[1];
         for (int i =3; i< placement.length();i=i+3){
@@ -135,7 +131,7 @@ public class StepsGame{
             String location2 = Pieces.location(piece)[1];
             for (int j=0; j<location1.length();j++){
                 for(int x = 0; x< locate.length();x++){
-                    if (!checkaround(locate.charAt(x),location1.charAt(j))){
+                    if (!checkAround(locate.charAt(x),location1.charAt(j))){
                         return false;
                     }
                 }
@@ -143,51 +139,43 @@ public class StepsGame{
         }
         return result;
     }
+
     public static String firstLevel = "ACEGILNPRTUWYbdgikmoprtvx";
     public static String secondLevel = "BDFHJKMOQSVXacefhjlnqsuwy";
-    public static boolean checkfirst (char c, String a){
+    public static boolean checklevel (char c, String a){
         boolean result = true;
         for (int i =0; i< a.length();i++){
-            if (c!=a.charAt(i)){
-                result = false;
-            }else {firstLevel=a.replace(a.charAt(i),' ');
-                return true;}
+            if (c==a.charAt(i)){
+                if(a.equals(firstLevel)){
+                    firstLevel=a.replace(a.charAt(i),' ');
+                }else{
+                    secondLevel=a.replace(a.charAt(i),' ');
+                }
+                return true;
+            }else {
+                result = false;}
         }
-
-        return result;
-    }
-
-
-    public static boolean checksecond (char c, String a){
-        boolean result = true;
-        for (int i =0; i< a.length();i++){
-            if (c!=a.charAt(i)){
-                result = false;
-            }else {secondLevel=a.replace(a.charAt(i),' ');return true;}
-        }
-
         return result;
     }
 
     public static boolean isPlacementSequenceValid(String placement) {
-        boolean result = true;
+        boolean result;
         firstLevel = "ACEGILNPRTUWYbdgikmoprtvx";
         secondLevel = "BDFHJKMOQSVXacefhjlnqsuwy";
         if (isPlacementWellFormed(placement)){
             String[] coord = Pieces.location(placement);
             for (int a = 0;a<coord[0].length();a++ ){
-                if (checkfirst((coord[0].charAt(a)),firstLevel)){
-                    result = true;
+                if (!checklevel((coord[0].charAt(a)),firstLevel)){
+                    return false;
                 }
-                else return false;
             }
-            for (int b = 0;b<coord[1].length();b++ ){
-                if (checksecond((coord[1].charAt(b)),secondLevel)){
-                    result = true;
+            for (int b = 0;b<coord[1].length();b++ ) {
+                if (!checklevel((coord[1].charAt(b)), secondLevel)) {
+                    return false;
                 }
-                else return false;}
+            }
         }else return false;
-        if (checkdup(placement)){
+        if (checkDup(placement)){
             result = true;
         }else return false;
         return result;
@@ -206,7 +194,6 @@ public class StepsGame{
      */
     static ArrayList<String> reset(String objective, String onBoard){
         ArrayList<String> result = new ArrayList<>();
-
         if (objective.length()==0) {
             result.add(onBoard);
         }
@@ -222,9 +209,6 @@ public class StepsGame{
         }
         return result;
     }
-
-
-
     // FIXME Task 6: determine the correct order of piece placements
     static Set<String> getViablePiecePlacements(String placement, String objective) {
         Set<String> result = new HashSet<>();
@@ -241,11 +225,8 @@ public class StepsGame{
                     && length!=24) {
                 result.add(i.substring(length,length+3));
             }
-        }
-        return result;
+        }return result;
     }
-
-
     /**
      * Return an array of all solutions to the game, given a starting placement.
      *
@@ -261,7 +242,6 @@ public class StepsGame{
         }
         return result;
     }
-
     static String[] getCandidateLocation (String placement){ //3 piece -> 18 //  32
         String[] result = new String[2];
         String location0 = Pieces.location(placement)[0];
@@ -278,17 +258,12 @@ public class StepsGame{
         }
         return  result;
     }
-
-
-
     static String[] getSolutions(String placement) {
         // FIXME Task 9: determine all solutions to the game, given a particular starting placement
         String [] result =new String[2];
         String candidatePiece = getCandidatePiece(placement);
         for(int i =0;i<=candidatePiece.length();i++){
         }
-
-
         return result;
     }
 }
